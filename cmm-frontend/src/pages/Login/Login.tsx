@@ -8,7 +8,7 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import { Lock, Visibility, VisibilityOff, Person } from "@mui/icons-material";
+import { Lock, Visibility, VisibilityOff, Email } from "@mui/icons-material";
 import CMMLogo from "@/assets/images/cmm.png";
 import { Container, StyledBackgroundImage, Card, ImageLogo } from "./styles";
 import Button from "../../components/Button";
@@ -59,16 +59,16 @@ const Login = () => {
             <ImageLogo src={CMMLogo} />
             <TextField
               fullWidth
-              placeholder="Username"
-              error={!!errors?.username}
-              helperText={errors?.username?.message || ""}
-              {...register("username")}
-              autoComplete="new-username"
+              placeholder="Email"
+              error={!!errors?.email}
+              helperText={errors?.email?.message || ""}
+              {...register("email")}
+              autoComplete="new-email"
               slotProps={{
                 input: {
                   startAdornment: (
                     <InputAdornment position="start">
-                      <Person fontSize="small" color="disabled" />
+                      <Email fontSize="small" color="disabled" />
                     </InputAdornment>
                   ),
                 },

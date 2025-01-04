@@ -1,11 +1,11 @@
 import { z } from "zod";
 
 export const loginSchema = z.object({
-  username: z
+  email: z
     .string()
-    .min(1, { message: "Username is required." })
-    .regex(/^[a-zA-Z]+$/, {
-      message: "Username must contain only uppercase and lowercase letters.",
+    .min(1, { message: "Email is required." })
+    .regex(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, {
+      message: "Enter a valid email address.",
     }),
   password: z
     .string()
