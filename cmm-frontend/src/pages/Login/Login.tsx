@@ -1,6 +1,13 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Box, InputAdornment, TextField, IconButton } from "@mui/material";
+import {
+  Box,
+  InputAdornment,
+  TextField,
+  IconButton,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import { Lock, Visibility, VisibilityOff, Person } from "@mui/icons-material";
 import CMMLogo from "@/assets/images/cmm.png";
 import { Container, StyledBackgroundImage, Card, ImageLogo } from "./styles";
@@ -11,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { ILoginInput, loginSchema } from "./schema";
 
 const Login = () => {
+  const theme = useTheme();
   const Toast = useToast();
   const navigate = useNavigate();
   const [visiblePassword, setVisiblePassword] = useState(false);
@@ -101,6 +109,26 @@ const Login = () => {
             <Button fullWidth type="submit">
               Login
             </Button>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                width: "100%",
+                mt: 2,
+              }}
+            >
+              <Typography fontSize={"0.8rem"}>Not Registered Yet ?</Typography>
+              <Typography
+                sx={{
+                  color: theme.palette.primary.main,
+                  cursor: "pointer",
+                  fontSize: "0.8rem",
+                }}
+                onClick={() => navigate("/signup")}
+              >
+                Sign up.
+              </Typography>
+            </Box>
           </Box>
         </form>
       </Card>
