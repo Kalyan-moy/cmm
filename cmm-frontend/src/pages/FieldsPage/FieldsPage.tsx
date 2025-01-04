@@ -9,6 +9,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { useState } from "react";
+import AddFieldModal from "./components/AddFieldModal";
 
 interface IField {
   id: number;
@@ -31,6 +32,11 @@ const FieldsPage = () => {
   const handleOpenAdd = () => {
     setOpenAdd(true);
   };
+
+  const handleCloseAdd = () => {
+    setOpenAdd(false);
+  };
+
   return (
     <Box>
       <InsideNavbar
@@ -82,6 +88,8 @@ const FieldsPage = () => {
           </Grid>
         )}
       </Grid>
+
+      <AddFieldModal open={openAdd} onClose={handleCloseAdd} />
     </Box>
   );
 };

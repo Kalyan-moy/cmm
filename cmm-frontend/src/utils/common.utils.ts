@@ -8,3 +8,6 @@ export const _hexToRgba = (hex: string, alpha: number = 1): string => {
     .map((x) => parseInt(x, 16));
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 };
+
+export const _generateHtmlId = (prefix = "component") =>
+  `${prefix}-${Math.random().toString(36).substr(2, 9)}`;
