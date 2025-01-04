@@ -5,7 +5,7 @@ import { Container } from "./styles";
 const LoadingPage = () => {
   return (
     <Container>
-      <Lottie animationData={Loader} loop />
+      <Lottie animationData={Loader} loop style={{ width: "10vw" }} />
     </Container>
   );
 };
