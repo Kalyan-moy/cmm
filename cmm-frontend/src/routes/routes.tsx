@@ -4,10 +4,11 @@ import { createBrowserRouter } from "react-router-dom";
 
 import ErrorPage from "../pages/ErrorPage";
 
+const RootLayout = lazy(() => import("../layouts/RootLayout"));
 const Signup = lazy(() => import("../pages/Signup"));
 const Login = lazy(() => import("../pages/Login"));
 const NotFound = lazy(() => import("../pages/NotFound"));
-const RootLayout = lazy(() => import("../layouts/RootLayout"));
+const Home = lazy(() => import("../pages/Home"));
 
 export const router = createBrowserRouter([
   {
@@ -33,16 +34,16 @@ export const router = createBrowserRouter([
         <RootLayout />
       </ErrorBoundary>
     ),
-    // children: [
-    //   {
-    //     index: true,
-    //     element: <Navigate to="/faq" />,
-    //   },
-    //   {
-    //     path: "/faq",
-    //     element: <Faq />,
-    //   },
-    // ],
+    children: [
+      {
+        index: true,
+        element: <Home />,
+      },
+      // {
+      //   path: "/faq",
+      //   element: <Faq />,
+      // },
+    ],
   },
   {
     path: "*",
