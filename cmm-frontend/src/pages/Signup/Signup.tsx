@@ -8,7 +8,13 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import { Lock, Visibility, VisibilityOff, Person } from "@mui/icons-material";
+import {
+  Lock,
+  Visibility,
+  VisibilityOff,
+  Person,
+  Email,
+} from "@mui/icons-material";
 import CMMLogo from "@/assets/images/cmm.png";
 import { Container, StyledBackgroundImage, Card, ImageLogo } from "./styles";
 import Button from "../../components/Button";
@@ -69,6 +75,24 @@ const Signup = () => {
                   startAdornment: (
                     <InputAdornment position="start">
                       <Person fontSize="small" color="disabled" />
+                    </InputAdornment>
+                  ),
+                },
+              }}
+            />
+            <TextField
+              fullWidth
+              placeholder="Email"
+              error={!!errors?.email}
+              helperText={errors?.email?.message || ""}
+              {...register("email")}
+              autoComplete="new-email"
+              sx={{ mt: 2 }}
+              slotProps={{
+                input: {
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Email fontSize="small" color="disabled" />
                     </InputAdornment>
                   ),
                 },
