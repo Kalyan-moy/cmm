@@ -1,5 +1,11 @@
+import { Box, Typography } from "@mui/material";
+
 const RootLayout = () => {
-  return <div>RootLayout</div>;
+  return (
+    <Box>
+      <Typography>Root Layout</Typography>
+    </Box>
+  );
 };
 
 export default RootLayout;

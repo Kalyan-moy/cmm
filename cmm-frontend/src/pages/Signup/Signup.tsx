@@ -1,5 +1,11 @@
+import { Box, Typography } from "@mui/material";
+
 const Signup = () => {
-  return <div>Signup</div>;
+  return (
+    <Box>
+      <Typography>Sign up</Typography>
+    </Box>
+  );
 };
 
 export default Signup;

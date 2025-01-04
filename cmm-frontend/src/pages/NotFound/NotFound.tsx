@@ -1,14 +1,14 @@
 import Lottie from "lottie-react";
-import { Box } from "@mui/system";
 import notFoundAnimation from "../../assets/lottie/not-found.json";
+import { Container, Content } from "./styles";
 
 const NotFound = () => {
   return (
-    <Box display="flex" justifyContent="center" alignItems="center">
-      <Box sx={{ height: "60vh", width: "80vw" }}>
+    <Container>
+      <Content>
         <Lottie animationData={notFoundAnimation} loop />
-      </Box>
-    </Box>
+      </Content>
+    </Container>
   );
 };
 
