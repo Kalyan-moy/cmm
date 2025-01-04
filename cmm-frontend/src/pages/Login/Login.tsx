@@ -8,9 +8,9 @@ import Button from "../../components/Button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useToast } from "@/providers/Toast.provider";
 import { useNavigate } from "react-router-dom";
-import { ISignupInput, signupSchema } from "./schema";
+import { ILoginInput, loginSchema } from "./schema";
 
-const Signup = () => {
+const Login = () => {
   const Toast = useToast();
   const navigate = useNavigate();
   const [visiblePassword, setVisiblePassword] = useState(false);
@@ -19,12 +19,12 @@ const Signup = () => {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<ISignupInput>({
-    resolver: zodResolver(signupSchema),
+  } = useForm<ILoginInput>({
+    resolver: zodResolver(loginSchema),
     mode: "onChange",
   });
 
-  const handleLSignin = async (data: ISignupInput) => {
+  const handleLSignin = async (data: ILoginInput) => {
     try {
       console.log({ data });
       reset();
@@ -99,7 +99,7 @@ const Signup = () => {
               }}
             />
             <Button fullWidth type="submit">
-              Signup
+              Login
             </Button>
           </Box>
         </form>
@@ -108,4 +108,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Login;
