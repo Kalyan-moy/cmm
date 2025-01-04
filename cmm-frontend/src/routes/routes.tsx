@@ -9,6 +9,8 @@ const Signup = lazy(() => import("../pages/Signup"));
 const Login = lazy(() => import("../pages/Login"));
 const NotFound = lazy(() => import("../pages/NotFound"));
 const Home = lazy(() => import("../pages/Home"));
+const Fields = lazy(() => import("../pages/FieldsPage"));
+const Forms = lazy(() => import("../pages/FormsPage"));
 
 export const router = createBrowserRouter([
   {
@@ -39,10 +41,14 @@ export const router = createBrowserRouter([
         index: true,
         element: <Home />,
       },
-      // {
-      //   path: "/faq",
-      //   element: <Faq />,
-      // },
+      {
+        path: "/fields",
+        element: <Fields />,
+      },
+      {
+        path: "/forms",
+        element: <Forms />,
+      },
     ],
   },
   {
