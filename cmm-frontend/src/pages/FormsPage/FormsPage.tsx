@@ -1,15 +1,19 @@
 import InsideNavbar from "@/components/InsideNavbar";
 import { Box } from "@mui/material";
 import { useState } from "react";
+import CreateFormModal from "./components/CreateFormModal";
 
 const FormsPage = () => {
   const [openAdd, setOpenAdd] = useState(false);
 
-  console.log({ openAdd });
-
   const handleOpenAdd = () => {
     setOpenAdd(true);
   };
+
+  const handleCloseAdd = () => {
+    setOpenAdd(false);
+  };
+
   return (
     <Box>
       <InsideNavbar
@@ -17,6 +21,8 @@ const FormsPage = () => {
         buttonLabel="Create Form"
         onAdd={handleOpenAdd}
       />
+
+      <CreateFormModal open={openAdd} onClose={handleCloseAdd} />
     </Box>
   );
 };

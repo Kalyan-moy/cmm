@@ -40,8 +40,8 @@ const FieldsPage = () => {
       )}
       <Grid container spacing={3} p={3}>
         {data && data.fields && data.fields.length > 0 ? (
-          data.fields?.map((item) => (
-            <Grid size={{ xs: 12, md: 6, lg: 3 }} key={item.id}>
+          data.fields?.map((item, idx) => (
+            <Grid size={{ xs: 12, md: 6, lg: 3 }} key={idx}>
               <Card variant="outlined">
                 <Box
                   flex={1}
