@@ -3,3 +3,9 @@ export enum DataTypeEnum {
   Number = "NUMBER",
   File = "FILE",
 }
+
+export interface ITokenData {
+  id: number;
+  username: string;
+  email: string;
+}
