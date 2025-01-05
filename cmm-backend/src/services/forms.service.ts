@@ -1,6 +1,7 @@
 import {
   createForm,
   getAllForms,
+  getFormById,
   InsertFormFieldMap,
 } from "../queries/forms.query";
 
@@ -26,4 +27,10 @@ export const getAllFormsService = async (user_id: number) => {
   const forms = await getAllForms(user_id);
 
   return forms;
+};
+
+export const getFormByIdService = async (id: number) => {
+  const form = await getFormById(id);
+
+  return form;
 };

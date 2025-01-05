@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import {
   createFormService,
   getAllFormsService,
+  getFormByIdService,
 } from "../services/forms.service";
 
 export const createFormController = async (req: Request, res: Response) => {
@@ -25,6 +26,18 @@ export const getAllFormsController = async (req: Request, res: Response) => {
     res.status(200).json({ message: "Forms fetched successfully", forms });
   } catch (error: any) {
     console.error("Fetch forms error:", error);
+    res.status(400).json({ error: error.message });
+  }
+};
+
+export const getFormByIdController = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  try {
+    const forms = await getFormByIdService(+id);
+    res.status(200).json({ message: "Form fetched successfully", forms });
+  } catch (error: any) {
+    console.error("Fetch form error:", error);
     res.status(400).json({ error: error.message });
   }
 };

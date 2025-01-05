@@ -23,3 +23,30 @@ export const InsertFormFieldMap = async (values: string) => {
   );
   return result.rows;
 };
+
+export const getFormById = async (id: number) => {
+  const result = await db.query(
+    `SELECT 
+    f.id AS id,
+    f.title AS form_title,
+    json_agg(
+        json_build_object(
+            'id', fi.id,
+            'title', fi.title,
+            'data_type', fi.data_type
+        )
+    ) AS fields
+    FROM 
+        forms f
+    JOIN 
+        form_field_map ffm ON f.id = ffm.id
+    JOIN 
+        fields fi ON ffm.field_id = fi.id
+    WHERE 
+        f.id = $1
+    GROUP BY 
+        f.id, f.title;`,
+    [id]
+  );
+  return result.rows[0];
+};
