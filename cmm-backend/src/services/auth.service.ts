@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { createUser, findUserByEmail } from "../models/user.model";
+import { createUser, findUserByEmail } from "../queries/user.query";
 
 // Signup logic
 export const signup = async (
@@ -51,7 +51,7 @@ export const login = async (email: string, password: string) => {
     { id: user.id, email: user.email },
     process.env.JWT_SECRET as string,
     {
-      expiresIn: "1h",
+      expiresIn: "30d",
     }
   );
 
