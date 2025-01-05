@@ -9,6 +9,10 @@ export default defineConfig({
   optimizeDeps: {
     include: ["@mui/icons-material"],
   },
+  server: {
+    port: 5173,
+    host: "0.0.0.0",
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
