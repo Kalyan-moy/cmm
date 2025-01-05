@@ -4,6 +4,7 @@ import TextInput from "@/components/TextInput";
 import { useToast } from "@/providers/Toast.provider";
 import { useGetFormById } from "@/services/queries/forms.query";
 import { DataTypeEnum } from "@/types/global.types";
+import { BASE_URL } from "@/utils/axios.utils";
 import { Box, Card, Typography } from "@mui/material";
 import axios from "axios";
 import { Controller, useForm } from "react-hook-form";
@@ -42,7 +43,7 @@ const ViewForm = () => {
       formData.append("data", JSON.stringify(transformedData));
 
       const res: any = await axios.post(
-        "http://localhost:5000/api/forms/response",
+        `${BASE_URL}/forms/response`,
         formData,
         {
           headers: {

@@ -2,8 +2,10 @@ import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { SIGNUP_URL } from "@/constants/endpoints.constants";
 import { _getToken, _removeToken } from "./auth.utils";
 
+export const BASE_URL = "http://localhost:5000/api";
+
 export const axiosInstance = axios.create({
-  baseURL: "http://localhost:5000/api",
+  baseURL: BASE_URL,
   timeout: 10000,
   headers: {
     "Content-Type": "application/json",
