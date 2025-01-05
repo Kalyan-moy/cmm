@@ -9,3 +9,19 @@ export interface ITokenData {
   username: string;
   email: string;
 }
+
+export interface ISignupResponse {
+  message: string;
+  token: string;
+  user: {
+    id: number;
+    username: string;
+    email: string;
+  };
+}
+
+export interface IUser {
+  id: number;
+  username: string;
+  email: string;
+}

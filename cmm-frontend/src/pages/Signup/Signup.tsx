@@ -22,12 +22,18 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useToast } from "@/providers/Toast.provider";
 import { useNavigate } from "react-router-dom";
 import { ISignupInput, signupSchema } from "./schema";
+import { useSignup } from "@/services/mutations/auth.mutation";
+import { _getTokenData, _setToken } from "@/utils/auth.utils";
+import { useSetRecoilState } from "recoil";
+import userAtom from "@/recoil/user.atom";
 
 const Signup = () => {
   const theme = useTheme();
   const Toast = useToast();
   const navigate = useNavigate();
   const [visiblePassword, setVisiblePassword] = useState(false);
+  const setUser = useSetRecoilState(userAtom);
+  const { mutateAsync: signupFn, isLoading } = useSignup();
   const {
     register,
     handleSubmit,
@@ -40,17 +46,26 @@ const Signup = () => {
 
   const handleLSignup = async (data: ISignupInput) => {
     try {
-      console.log({ data });
-      reset();
-      Toast.success({
-        title: "Logged in",
-        message: "You have successfully logged in.",
-      });
-      navigate("/");
+      const { token, user } = await signupFn({ data });
+      if (token) {
+        setUser({ id: user.id, username: user.username, email: user.email });
+        _setToken(token);
+        reset();
+        Toast.success({
+          title: "Logged in",
+          message: "You have successfully logged in.",
+        });
+        navigate("/");
+      } else {
+        return Toast.error({
+          title: "Signup failed",
+          message: "Something went wrong, please try again later.",
+        });
+      }
     } catch (error) {
-      console.error("Error while login : ", error);
+      console.error("Error while signup : ", error);
       return Toast.error({
-        title: "Login failed",
+        title: "Signup failed",
         message: "Something went wrong, please try again later.",
       });
     }
@@ -130,7 +145,7 @@ const Signup = () => {
                 },
               }}
             />
-            <Button fullWidth type="submit">
+            <Button fullWidth type="submit" loading={isLoading}>
               Signup
             </Button>
             <Box
