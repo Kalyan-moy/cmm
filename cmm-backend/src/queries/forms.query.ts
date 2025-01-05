@@ -28,7 +28,7 @@ export const getFormById = async (id: number) => {
   const result = await db.query(
     `SELECT 
     f.id AS form_id,
-    f.title AS form_title,
+    f.title,
     json_agg(
         json_build_object(
             'id', fi.id,
