@@ -1,6 +1,6 @@
 import { Pool } from "pg";
 
-const pool = new Pool({
+export const db = new Pool({
   user: process.env.POSTGRES_USER,
   host: process.env.POSTGRES_HOST,
   database: process.env.POSTGRES_DB,
@@ -9,7 +9,7 @@ const pool = new Pool({
 });
 
 const connectPostgres = (): void => {
-  pool.connect((err) => {
+  db.connect((err) => {
     if (err) {
       console.error("PostgreSQL connection error", err);
     } else {
