@@ -10,6 +10,10 @@ import Button from "@/components/Button";
 // import { useToast } from "@/providers/Toast.provider";
 import { addFieldSchema, IAddFieldModel } from "./schema";
 import { DataTypeEnum } from "@/types/global.types";
+import { useCreateField } from "@/services/mutations/fields.mutation";
+import { useToast } from "@/providers/Toast.provider";
+import { useQueryClient } from "react-query";
+import { FETCH_FIELDS } from "@/constants/queryKeys.constants";
 
 interface IAddFieldModalProps {
   open: boolean;
@@ -17,12 +21,15 @@ interface IAddFieldModalProps {
 }
 
 const AddFieldModal: FC<IAddFieldModalProps> = ({ open, onClose }) => {
-  //   const Toast = useToast();
+  const Toast = useToast();
+  const { mutateAsync: createFieldFn, isLoading } = useCreateField();
   const dataTypes = [
     { label: "String", value: DataTypeEnum.String },
     { label: "Number", value: DataTypeEnum.Number },
     { label: "File", value: DataTypeEnum.File },
   ];
+
+  const queryClient = useQueryClient();
 
   const {
     register,
@@ -36,7 +43,22 @@ const AddFieldModal: FC<IAddFieldModalProps> = ({ open, onClose }) => {
   });
 
   const handleSave = async (data: IAddFieldModel) => {
-    console.log({ data });
+    // console.log({ data });
+    try {
+      await createFieldFn({ data });
+      Toast.success({
+        title: "Field created",
+        message: "Field has been created successfully.",
+      });
+      queryClient.invalidateQueries([FETCH_FIELDS]);
+      reset();
+      onClose();
+    } catch (error) {
+      Toast.error({
+        title: "Failed to create field",
+        message: "Something went wrong, please try again later.",
+      });
+    }
   };
 
   return (
@@ -84,8 +106,8 @@ const AddFieldModal: FC<IAddFieldModalProps> = ({ open, onClose }) => {
               />
             )}
           />
-          <Button type="submit" fullWidth sx={{ mt: 4 }}>
-            Add Field
+          <Button type="submit" fullWidth sx={{ mt: 4 }} loading={isLoading}>
+            Create Field
           </Button>
         </form>
       </Box>

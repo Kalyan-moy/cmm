@@ -2,3 +2,4 @@
 export const SIGNUP_URL = "/auth/signup";
 export const LOGIN_URL = "/auth/login";
 export const GET_FIELDS = "/fields";
+export const CREATE_FIELD = "/fields";

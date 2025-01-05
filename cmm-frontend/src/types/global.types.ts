@@ -36,3 +36,8 @@ export interface IFieldResponse {
   message: string;
   fields: IField[];
 }
+
+export interface ICreateFieldResponse {
+  message: string;
+  field: IField;
+}
