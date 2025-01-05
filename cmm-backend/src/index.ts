@@ -4,8 +4,10 @@ import cors from "cors";
 import dotenv from "dotenv";
 import connectPostgres from "./config/postgres";
 import connectMongoDB from "./config/mongodb";
+
 import authRoutes from "./routes/auth.routes";
 import fieldsRoutes from "./routes/fields.routes";
+import formsRoutes from "./routes/forms.routes";
 
 dotenv.config();
 
@@ -24,6 +26,7 @@ connectMongoDB();
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/fields", fieldsRoutes);
+app.use("/api/forms", formsRoutes);
 
 // Start the Server
 app.listen(PORT, () => {
