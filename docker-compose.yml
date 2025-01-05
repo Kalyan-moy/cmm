@@ -13,6 +13,9 @@ services:
     build:
       context: ./cmm-backend
       dockerfile: Dockerfile
+    volumes:
+      - ./cmm-backend:/app
+      - /app/node_modules
     ports:
       - "5000:5000"
     environment:
@@ -22,6 +25,7 @@ services:
       - POSTGRES_HOST=postgres
       - POSTGRES_PORT=5432
       - MONGODB_URI=mongodb://mongo:27017/${MONGO_DB}
+    command: npm run dev
 
   postgres:
     image: postgres:latest
