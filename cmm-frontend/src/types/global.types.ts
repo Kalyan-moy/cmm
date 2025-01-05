@@ -25,3 +25,14 @@ export interface IUser {
   username: string;
   email: string;
 }
+
+export interface IField {
+  id: string;
+  title: string;
+  data_type: string;
+}
+
+export interface IFieldResponse {
+  message: string;
+  fields: IField[];
+}

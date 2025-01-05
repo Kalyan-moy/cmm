@@ -1,5 +1,4 @@
 import InsideNavbar from "@/components/InsideNavbar";
-import { DataTypeEnum } from "@/types/global.types";
 import {
   Box,
   Card,
@@ -10,24 +9,14 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import AddFieldModal from "./components/AddFieldModal";
-
-interface IField {
-  id: number;
-  title: string;
-  data_type: DataTypeEnum;
-}
-
-const DummyFields: IField[] = [
-  { id: 0, title: "Name", data_type: DataTypeEnum.String },
-  { id: 1, title: "Age", data_type: DataTypeEnum.Number },
-  { id: 2, title: "Profile Pic", data_type: DataTypeEnum.File },
-];
-
-// const DummyFields: IField | [] = [];
+import { useGetFields } from "@/services/queries/fields.query";
+import Lottie from "lottie-react";
+import Loader from "../../assets/lottie/loader.json";
 
 const FieldsPage = () => {
   const theme = useTheme();
   const [openAdd, setOpenAdd] = useState(false);
+  const { data, isLoading } = useGetFields();
 
   const handleOpenAdd = () => {
     setOpenAdd(true);
@@ -44,9 +33,14 @@ const FieldsPage = () => {
         buttonLabel="Add Field"
         onAdd={handleOpenAdd}
       />
+      {isLoading && (
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
+          <Lottie animationData={Loader} loop style={{ width: "10vw" }} />
+        </Box>
+      )}
       <Grid container spacing={3} p={3}>
-        {DummyFields.length > 0 ? (
-          DummyFields?.map((item: IField) => (
+        {data && data.fields && data.fields.length > 0 ? (
+          data.fields?.map((item) => (
             <Grid size={{ xs: 12, md: 6, lg: 3 }} key={item.id}>
               <Card variant="outlined">
                 <Box
