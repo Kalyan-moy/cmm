@@ -22,6 +22,7 @@ connectMongoDB();
 
 // Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/fields", authRoutes);
 
 // Start the Server
 app.listen(PORT, () => {
