@@ -38,7 +38,7 @@ const Signup = () => {
     mode: "onChange",
   });
 
-  const handleLSignin = async (data: ISignupInput) => {
+  const handleLSignup = async (data: ISignupInput) => {
     try {
       console.log({ data });
       reset();
@@ -60,7 +60,7 @@ const Signup = () => {
     <Container>
       <StyledBackgroundImage />
       <Card>
-        <form onSubmit={handleSubmit(handleLSignin)}>
+        <form onSubmit={handleSubmit(handleLSignup)}>
           <Box display="flex" flexDirection="column" alignItems="center">
             <ImageLogo src={CMMLogo} />
             <TextField
