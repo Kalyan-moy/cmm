@@ -19,7 +19,10 @@ import { useToast } from "@/providers/Toast.provider";
 import { useQueryClient } from "react-query";
 import { useGetFields } from "@/services/queries/fields.query";
 import AddIcon from "@mui/icons-material/Add";
-import { useCreateForm } from "@/services/mutations/forms.mutation";
+import {
+  ICreateFormWithFields,
+  useCreateForm,
+} from "@/services/mutations/forms.mutation";
 import { FETCH_FORMS } from "@/constants/queryKeys.constants";
 
 interface ICreateFormModalProps {
@@ -47,10 +50,11 @@ const CreateFormModal: FC<ICreateFormModalProps> = ({ open, onClose }) => {
     mode: "onChange",
   });
 
-  const handleSave = async (data: ICreateFormModel) => {
-    // console.log({ data });
+  const handleSave = async (data: ICreateFormWithFields) => {
     try {
-      await createFormFn({ data });
+      await createFormFn({
+        data: { ...data, fieldIds: addedFields.map((field) => +field.id) },
+      });
       Toast.success({
         title: "Form created",
         message: "Form has been created successfully.",

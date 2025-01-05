@@ -1,7 +1,23 @@
-import { createForm, getAllForms } from "../queries/forms.query";
+import {
+  createForm,
+  getAllForms,
+  InsertFormFieldMap,
+} from "../queries/forms.query";
 
-export const createFormService = async (title: string, created_by: number) => {
+export const createFormService = async (
+  title: string,
+  fieldIds: number[],
+  created_by: number
+) => {
   const form = await createForm(title, created_by);
+
+  if (fieldIds.length > 0) {
+    const values = fieldIds
+      .map((field_id) => `(${form.id}, ${field_id})`)
+      .join(", ");
+
+    await InsertFormFieldMap(values);
+  }
 
   return form;
 };

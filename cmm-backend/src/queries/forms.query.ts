@@ -15,3 +15,11 @@ export const getAllForms = async (user_id: number) => {
   ]);
   return result.rows;
 };
+
+export const InsertFormFieldMap = async (values: string) => {
+  const result = await db.query(
+    `INSERT INTO form_field_map (form_id, field_id)
+    VALUES ${values};`
+  );
+  return result.rows;
+};
