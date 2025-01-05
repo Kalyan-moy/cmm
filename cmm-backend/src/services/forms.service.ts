@@ -2,6 +2,7 @@ import {
   createForm,
   getAllForms,
   getFormById,
+  getResponseByEmailAndFormId,
   InsertFormFieldMap,
   submitResponse,
 } from "../queries/forms.query";
@@ -41,7 +42,16 @@ export const submitResponseService = async (
   form_id: number,
   data: { fieldId: number; value: any }[]
 ) => {
-  const form = await submitResponse(email, form_id, data);
+  const response = await submitResponse(email, form_id, data);
 
-  return form;
+  return response;
+};
+
+export const getResponseByEmailAndFormIdService = async (
+  email: string,
+  form_id: number
+) => {
+  const responses = await getResponseByEmailAndFormId(email, form_id);
+
+  return responses;
 };

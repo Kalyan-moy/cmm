@@ -3,6 +3,7 @@ import {
   createFormService,
   getAllFormsService,
   getFormByIdService,
+  getResponseByEmailAndFormIdService,
   submitResponseService,
 } from "../services/forms.service";
 
@@ -47,10 +48,19 @@ export const submitResponseController = async (req: Request, res: Response) => {
   const { email, form_id, data } = req.body;
 
   try {
-    const response = await submitResponseService(email, form_id, data);
-    res
-      .status(201)
-      .json({ message: "Response submitted successfully", response });
+    const existingResponses = await getResponseByEmailAndFormIdService(
+      email,
+      form_id
+    );
+
+    if (existingResponses.length === 0) {
+      const response = await submitResponseService(email, form_id, data);
+      res
+        .status(201)
+        .json({ message: "Response submitted successfully", response });
+    } else {
+      res.status(409).json({ message: "Already Exist" });
+    }
   } catch (error: any) {
     console.error("submit response error:", error);
     res.status(400).json({ error: error.message });

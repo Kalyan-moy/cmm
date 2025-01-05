@@ -63,3 +63,14 @@ export const submitResponse = async (
   );
   return result.rows[0];
 };
+
+export const getResponseByEmailAndFormId = async (
+  email: string,
+  form_id: number
+) => {
+  const result = await db.query(
+    `SELECT * FROM responses WHERE email = $1 AND form_id = $2`,
+    [email, form_id]
+  );
+  return result.rows;
+};
