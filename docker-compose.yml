@@ -2,7 +2,7 @@ version: "3.8"
 services:
   frontend:
     build:
-      context: ./frontend
+      context: ./cmm-frontend
       dockerfile: Dockerfile
     ports:
       - "5173:80"
@@ -11,7 +11,7 @@ services:
 
   backend:
     build:
-      context: ./backend
+      context: ./cmm-backend
       dockerfile: Dockerfile
     ports:
       - "5000:5000"
@@ -26,9 +26,9 @@ services:
   postgres:
     image: postgres:latest
     environment:
-      POSTGRES_USER: your_pg_user
-      POSTGRES_PASSWORD: your_pg_password
-      POSTGRES_DB: your_pg_database
+      POSTGRES_USER: cmm
+      POSTGRES_PASSWORD: cmm1234
+      POSTGRES_DB: cmm
     ports:
       - "5432:5432"
 

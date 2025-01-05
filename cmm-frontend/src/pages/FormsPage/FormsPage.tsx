@@ -5,6 +5,8 @@ import { useState } from "react";
 const FormsPage = () => {
   const [openAdd, setOpenAdd] = useState(false);
 
+  console.log({ openAdd });
+
   const handleOpenAdd = () => {
     setOpenAdd(true);
   };
