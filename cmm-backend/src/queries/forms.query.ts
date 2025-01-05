@@ -27,7 +27,7 @@ export const InsertFormFieldMap = async (values: string) => {
 export const getFormById = async (id: number) => {
   const result = await db.query(
     `SELECT 
-    f.id AS id,
+    f.id AS form_id,
     f.title AS form_title,
     json_agg(
         json_build_object(
@@ -39,7 +39,7 @@ export const getFormById = async (id: number) => {
     FROM 
         forms f
     JOIN 
-        form_field_map ffm ON f.id = ffm.id
+        form_field_map ffm ON f.id = ffm.form_id
     JOIN 
         fields fi ON ffm.field_id = fi.id
     WHERE 

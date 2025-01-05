@@ -3,6 +3,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import { createBrowserRouter } from "react-router-dom";
 
 import ErrorPage from "../pages/ErrorPage";
+import ViewForm from "@/pages/ViewForm";
 
 const RootLayout = lazy(() => import("../layouts/RootLayout"));
 const Signup = lazy(() => import("../pages/Signup"));
@@ -50,6 +51,14 @@ export const router = createBrowserRouter([
         element: <Forms />,
       },
     ],
+  },
+  {
+    path: "/public/form/:id",
+    element: (
+      <ErrorBoundary FallbackComponent={ErrorPage}>
+        <ViewForm />
+      </ErrorBoundary>
+    ),
   },
   {
     path: "*",

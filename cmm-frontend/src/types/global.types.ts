@@ -45,6 +45,7 @@ export interface ICreateFieldResponse {
 export interface IForm {
   id: string;
   title: string;
+  fields: IField[];
 }
 
 export interface ICreateFormResponse {
@@ -55,4 +56,9 @@ export interface ICreateFormResponse {
 export interface IFormsResponse {
   message: string;
   forms: IForm[];
+}
+
+export interface IFormResponse {
+  message: string;
+  form: IForm;
 }

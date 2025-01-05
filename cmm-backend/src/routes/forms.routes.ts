@@ -11,6 +11,6 @@ const router = express.Router();
 // Signup and Login Routes
 router.get("/", verifyToken, getAllFormsController);
 router.post("/", verifyToken, createFormController);
-router.post("/:id", getFormByIdController);
+router.get("/:id", getFormByIdController);
 
 export default router;

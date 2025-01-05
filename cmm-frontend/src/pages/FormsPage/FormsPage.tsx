@@ -12,10 +12,12 @@ import { useGetForms } from "@/services/queries/forms.query";
 import Lottie from "lottie-react";
 import Loader from "../../assets/lottie/loader.json";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import { useNavigate } from "react-router-dom";
 
 const FormsPage = () => {
   const [openAdd, setOpenAdd] = useState(false);
   const { data, isLoading } = useGetForms();
+  const navigate = useNavigate();
 
   const handleOpenAdd = () => {
     setOpenAdd(true);
@@ -59,7 +61,11 @@ const FormsPage = () => {
                       {item.title}
                     </Typography>
 
-                    <IconButton>
+                    <IconButton
+                      onClick={() => {
+                        navigate(`/public/form/${item.id}`);
+                      }}
+                    >
                       <VisibilityIcon />
                     </IconButton>
                   </Box>

@@ -34,8 +34,8 @@ export const getFormByIdController = async (req: Request, res: Response) => {
   const { id } = req.params;
 
   try {
-    const forms = await getFormByIdService(+id);
-    res.status(200).json({ message: "Form fetched successfully", forms });
+    const form = await getFormByIdService(+id);
+    res.status(200).json({ message: "Form fetched successfully", form });
   } catch (error: any) {
     console.error("Fetch form error:", error);
     res.status(400).json({ error: error.message });
