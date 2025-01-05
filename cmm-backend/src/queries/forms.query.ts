@@ -53,7 +53,7 @@ export const getFormById = async (id: number) => {
 export const submitResponse = async (
   email: string,
   form_id: number,
-  data: { fieldId: number; value: any }[]
+  data: { fieldName: string; value: any }[]
 ) => {
   const result = await db.query(
     `INSERT INTO responses (email, form_id, data)

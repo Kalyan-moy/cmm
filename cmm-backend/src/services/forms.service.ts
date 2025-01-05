@@ -40,7 +40,7 @@ export const getFormByIdService = async (id: number) => {
 export const submitResponseService = async (
   email: string,
   form_id: number,
-  data: { fieldId: number; value: any }[]
+  data: { fieldName: string; value: any }[]
 ) => {
   const response = await submitResponse(email, form_id, data);
 

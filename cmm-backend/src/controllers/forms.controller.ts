@@ -59,7 +59,7 @@ export const submitResponseController = async (req: Request, res: Response) => {
         .status(201)
         .json({ message: "Response submitted successfully", response });
     } else {
-      res.status(409).json({ message: "Already Exist" });
+      res.status(201).json({ message: "Already Exist" });
     }
   } catch (error: any) {
     console.error("submit response error:", error);
