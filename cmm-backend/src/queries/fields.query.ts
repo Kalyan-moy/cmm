@@ -12,3 +12,10 @@ export const createField = async (
   );
   return result.rows[0];
 };
+
+export const getAllFields = async (user_id: number) => {
+  const result = await db.query(`SELECT * FROM fields WHERE created_by = $1`, [
+    user_id,
+  ]);
+  return result.rows;
+};

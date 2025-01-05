@@ -1,4 +1,4 @@
-import { createField } from "../queries/fields.query";
+import { createField, getAllFields } from "../queries/fields.query";
 
 export const createFieldService = async (
   title: string,
@@ -8,4 +8,10 @@ export const createFieldService = async (
   const field = await createField(title, data_type, created_by);
 
   return field;
+};
+
+export const getAllFieldsService = async (user_id: number) => {
+  const fields = await getAllFields(user_id);
+
+  return fields;
 };
