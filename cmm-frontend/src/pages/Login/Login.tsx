@@ -16,12 +16,19 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useToast } from "@/providers/Toast.provider";
 import { useNavigate } from "react-router-dom";
 import { ILoginInput, loginSchema } from "./schema";
+import { useLogin } from "@/services/mutations/auth.mutation";
+import { useSetRecoilState } from "recoil";
+import userAtom from "@/recoil/user.atom";
+import { _setToken } from "@/utils/auth.utils";
 
 const Login = () => {
   const theme = useTheme();
   const Toast = useToast();
   const navigate = useNavigate();
   const [visiblePassword, setVisiblePassword] = useState(false);
+  const setUser = useSetRecoilState(userAtom);
+  const { mutateAsync: loginFn, isLoading } = useLogin();
+
   const {
     register,
     handleSubmit,
@@ -34,13 +41,23 @@ const Login = () => {
 
   const handleLSignin = async (data: ILoginInput) => {
     try {
-      console.log({ data });
-      reset();
-      Toast.success({
-        title: "Logged in",
-        message: "You have successfully logged in.",
-      });
-      navigate("/");
+      const { token, user } = await loginFn({ data });
+
+      if (token) {
+        setUser({ id: user.id, username: user.username, email: user.email });
+        _setToken(token);
+        reset();
+        Toast.success({
+          title: "Logged in",
+          message: "You have successfully logged in.",
+        });
+        navigate("/");
+      } else {
+        return Toast.error({
+          title: "Login failed",
+          message: "Something went wrong, please try again later.",
+        });
+      }
     } catch (error) {
       console.error("Error while login : ", error);
       return Toast.error({
@@ -106,7 +123,7 @@ const Login = () => {
                 },
               }}
             />
-            <Button fullWidth type="submit">
+            <Button fullWidth type="submit" loading={isLoading}>
               Login
             </Button>
             <Box

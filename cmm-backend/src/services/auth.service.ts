@@ -40,6 +40,8 @@ export const login = async (email: string, password: string) => {
     throw new Error("Invalid email or password");
   }
 
+  const { password: userPassword, ...rest } = user;
+
   // Compare the password
   const isPasswordValid = await bcrypt.compare(password, user.password);
   if (!isPasswordValid) {
@@ -55,5 +57,5 @@ export const login = async (email: string, password: string) => {
     }
   );
 
-  return { token, user };
+  return { token, user: rest };
 };
