@@ -4,6 +4,9 @@ import { Menu, Slide, SlideProps } from "@mui/material";
 import { AccountCircle, ExpandMoreRounded, Logout } from "@mui/icons-material";
 
 import { MenuItem, WelcomeMessage, IconButton } from "./styles";
+import { _removeToken } from "@/utils/auth.utils";
+import { useRecoilState } from "recoil";
+import userAtom from "@/recoil/user.atom";
 
 const CustomSlide = forwardRef(function CustomSlide(
   props: SlideProps,
@@ -16,6 +19,7 @@ const Profile: FC = () => {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const [user, setUser] = useRecoilState(userAtom);
 
   const handleClick = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -26,6 +30,8 @@ const Profile: FC = () => {
   };
 
   const handleLogOut = () => {
+    _removeToken();
+    setUser({ id: 0, username: "", email: "" });
     return navigate("/login");
   };
 
@@ -46,7 +52,7 @@ const Profile: FC = () => {
         TransitionComponent={CustomSlide}
       >
         <WelcomeMessage variant="body2">
-          Hello Kalyanmoy &#128075;
+          Hello {user?.username || ""} &#128075;
         </WelcomeMessage>
         <MenuItem onClick={handleLogOut}>
           <Logout fontSize="small" sx={{ mr: 1 }} />
