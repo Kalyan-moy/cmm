@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import connectPostgres from "./config/postgres";
 import connectMongoDB from "./config/mongodb";
 import authRoutes from "./routes/auth.routes";
+import fieldsRoutes from "./routes/fields.routes";
 
 dotenv.config();
 
@@ -22,7 +23,7 @@ connectMongoDB();
 
 // Routes
 app.use("/api/auth", authRoutes);
-app.use("/api/fields", authRoutes);
+app.use("/api/fields", fieldsRoutes);
 
 // Start the Server
 app.listen(PORT, () => {
