@@ -2,10 +2,10 @@ import Button from "@/components/Button";
 import Navbar from "@/components/Navbar";
 import TextInput from "@/components/TextInput";
 import { useToast } from "@/providers/Toast.provider";
-import { useSubmitResponse } from "@/services/mutations/forms.mutation";
 import { useGetFormById } from "@/services/queries/forms.query";
 import { DataTypeEnum } from "@/types/global.types";
 import { Box, Card, Typography } from "@mui/material";
+import axios from "axios";
 import { Controller, useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 
@@ -15,15 +15,14 @@ const ViewForm = () => {
   const formId = params?.id ? +params.id : undefined;
 
   const { data } = useGetFormById(formId);
-  const { mutateAsync: submitResponseFn, isLoading } = useSubmitResponse();
 
   const { register, handleSubmit, control, reset } = useForm();
 
   const handleSave = async (data: any) => {
-    console.log({ data });
-
     try {
       const { email, ...updatedData } = data;
+      const formData = new FormData();
+
       if (!email) {
         return Toast.warning({
           title: "Email is mandatory.",
@@ -36,9 +35,21 @@ const ViewForm = () => {
           value: value || "",
         })
       );
-      const res = await submitResponseFn({
-        data: { email: email, form_id: formId, data: transformedData },
-      });
+
+      formData.append("email", data.email);
+      formData.append("form_id", String(formId));
+      formData.append("file", data.file);
+      formData.append("data", JSON.stringify(transformedData));
+
+      const res: any = await axios.post(
+        "http://localhost:5000/api/forms/response",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
       if (res.message === "Already Exist") {
         return Toast.warning({
@@ -115,7 +126,7 @@ const ViewForm = () => {
                         {field.data_type === DataTypeEnum.File && (
                           <Controller
                             control={control}
-                            name="File"
+                            name="file"
                             render={({ field }) => (
                               <TextInput
                                 label="Upload file"
@@ -140,12 +151,7 @@ const ViewForm = () => {
                     );
                   })}
               </Box>
-              <Button
-                type="submit"
-                fullWidth
-                sx={{ mt: 4 }}
-                loading={isLoading}
-              >
+              <Button type="submit" fullWidth sx={{ mt: 4 }}>
                 Submit Response
               </Button>
             </form>

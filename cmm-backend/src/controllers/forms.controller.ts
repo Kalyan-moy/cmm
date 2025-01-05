@@ -6,6 +6,7 @@ import {
   getResponseByEmailAndFormIdService,
   submitResponseService,
 } from "../services/forms.service";
+import FileModel from "../models/file.model";
 
 export const createFormController = async (req: Request, res: Response) => {
   const { title, fieldIds } = req.body;
@@ -46,15 +47,34 @@ export const getFormByIdController = async (req: Request, res: Response) => {
 
 export const submitResponseController = async (req: Request, res: Response) => {
   const { email, form_id, data } = req.body;
+  const file = req.file;
 
   try {
     const existingResponses = await getResponseByEmailAndFormIdService(
       email,
       form_id
     );
-
     if (existingResponses.length === 0) {
-      const response = await submitResponseService(email, form_id, data);
+      let fileData = null;
+      if (file) {
+        fileData = {
+          filename: file.originalname,
+          mimetype: file.mimetype,
+          data: file.buffer,
+        };
+      }
+      const savedFile: any = await FileModel.create(fileData);
+      const fileId = savedFile._id.toString();
+
+      const updatedData = JSON.parse(data).map((item: any) =>
+        item.fieldName === "file" ? { ...item, value: fileId } : item
+      );
+
+      const response = await submitResponseService(
+        email,
+        +form_id,
+        updatedData
+      );
       res
         .status(201)
         .json({ message: "Response submitted successfully", response });
