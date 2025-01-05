@@ -20,6 +20,8 @@ const ViewForm = () => {
   const { register, handleSubmit, control, reset } = useForm();
 
   const handleSave = async (data: any) => {
+    console.log({ data });
+
     try {
       const { email, ...updatedData } = data;
       if (!email) {
