@@ -37,28 +37,32 @@ const Profile: FC = () => {
 
   return (
     <>
-      <IconButton onClick={handleClick}>
-        <AccountCircle fontSize="large" />
-        <ExpandMoreRounded />
-      </IconButton>
-      <Menu
-        id="profile-menu"
-        MenuListProps={{
-          "aria-labelledby": "profile-button",
-        }}
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        TransitionComponent={CustomSlide}
-      >
-        <WelcomeMessage variant="body2">
-          Hello {user?.username || ""} &#128075;
-        </WelcomeMessage>
-        <MenuItem onClick={handleLogOut}>
-          <Logout fontSize="small" sx={{ mr: 1 }} />
-          Logout
-        </MenuItem>
-      </Menu>
+      {user && (
+        <>
+          <IconButton onClick={handleClick}>
+            <AccountCircle fontSize="large" />
+            <ExpandMoreRounded />
+          </IconButton>
+          <Menu
+            id="profile-menu"
+            MenuListProps={{
+              "aria-labelledby": "profile-button",
+            }}
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            TransitionComponent={CustomSlide}
+          >
+            <WelcomeMessage variant="body2">
+              Hello {user?.username || ""} &#128075;
+            </WelcomeMessage>
+            <MenuItem onClick={handleLogOut}>
+              <Logout fontSize="small" sx={{ mr: 1 }} />
+              Logout
+            </MenuItem>
+          </Menu>
+        </>
+      )}
     </>
   );
 };
