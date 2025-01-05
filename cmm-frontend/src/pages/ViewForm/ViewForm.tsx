@@ -37,13 +37,14 @@ const ViewForm = () => {
                   {data.form.title}
                 </Typography>
                 <TextInput
-                  label={"Username"}
+                  label={"Email"}
                   required
                   inputProps={{
-                    placeholder: `Enter Your Name`,
+                    placeholder: `Enter Your Email`,
                     fullWidth: true,
                     sx: { mb: 1.5 },
-                    ...register("username"),
+                    type: "email",
+                    ...register("email"),
                   }}
                 />
                 {data.form.fields.length > 0 &&
