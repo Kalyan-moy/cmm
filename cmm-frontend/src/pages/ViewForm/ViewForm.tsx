@@ -36,6 +36,16 @@ const ViewForm = () => {
                 <Typography variant="h6" textAlign={"center"} marginBottom={5}>
                   {data.form.title}
                 </Typography>
+                <TextInput
+                  label={"Username"}
+                  required
+                  inputProps={{
+                    placeholder: `Enter Your Name`,
+                    fullWidth: true,
+                    sx: { mb: 1.5 },
+                    ...register("username"),
+                  }}
+                />
                 {data.form.fields.length > 0 &&
                   data.form.fields.map((field, idx) => {
                     return (
