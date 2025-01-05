@@ -4,6 +4,7 @@ import {
   createFormController,
   getAllFormsController,
   getFormByIdController,
+  submitResponseController,
 } from "../controllers/forms.controller";
 
 const router = express.Router();
@@ -12,5 +13,6 @@ const router = express.Router();
 router.get("/", verifyToken, getAllFormsController);
 router.post("/", verifyToken, createFormController);
 router.get("/:id", getFormByIdController);
+router.post("/response", submitResponseController);
 
 export default router;

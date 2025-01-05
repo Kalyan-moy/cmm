@@ -3,6 +3,7 @@ import {
   getAllForms,
   getFormById,
   InsertFormFieldMap,
+  submitResponse,
 } from "../queries/forms.query";
 
 export const createFormService = async (
@@ -31,6 +32,16 @@ export const getAllFormsService = async (user_id: number) => {
 
 export const getFormByIdService = async (id: number) => {
   const form = await getFormById(id);
+
+  return form;
+};
+
+export const submitResponseService = async (
+  email: string,
+  form_id: number,
+  data: { fieldId: number; value: any }[]
+) => {
+  const form = await submitResponse(email, form_id, data);
 
   return form;
 };

@@ -3,6 +3,7 @@ import {
   createFormService,
   getAllFormsService,
   getFormByIdService,
+  submitResponseService,
 } from "../services/forms.service";
 
 export const createFormController = async (req: Request, res: Response) => {
@@ -38,6 +39,20 @@ export const getFormByIdController = async (req: Request, res: Response) => {
     res.status(200).json({ message: "Form fetched successfully", form });
   } catch (error: any) {
     console.error("Fetch form error:", error);
+    res.status(400).json({ error: error.message });
+  }
+};
+
+export const submitResponseController = async (req: Request, res: Response) => {
+  const { email, form_id, data } = req.body;
+
+  try {
+    const response = await submitResponseService(email, form_id, data);
+    res
+      .status(201)
+      .json({ message: "Response submitted successfully", response });
+  } catch (error: any) {
+    console.error("submit response error:", error);
     res.status(400).json({ error: error.message });
   }
 };

@@ -1,6 +1,5 @@
 import { db } from "../config/postgres";
 
-// Insert a new user into the database
 export const createForm = async (title: string, created_by: number) => {
   const result = await db.query(
     `INSERT INTO forms (title, created_by) VALUES ($1, $2) RETURNING id, title`,
@@ -47,6 +46,20 @@ export const getFormById = async (id: number) => {
     GROUP BY 
         f.id, f.title;`,
     [id]
+  );
+  return result.rows[0];
+};
+
+export const submitResponse = async (
+  email: string,
+  form_id: number,
+  data: { fieldId: number; value: any }[]
+) => {
+  const result = await db.query(
+    `INSERT INTO responses (email, form_id, data)
+    VALUES ($1, $2, $3::jsonb)
+    RETURNING id`,
+    [email, form_id, JSON.stringify(data)]
   );
   return result.rows[0];
 };
