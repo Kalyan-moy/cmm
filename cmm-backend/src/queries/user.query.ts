@@ -1,6 +1,5 @@
 import { db } from "../config/postgres";
 
-// Insert a new user into the database
 export const createUser = async (
   username: string,
   email: string,
@@ -13,7 +12,6 @@ export const createUser = async (
   return result.rows[0];
 };
 
-// Find a user by email
 export const findUserByEmail = async (email: string) => {
   const result = await db.query(`SELECT * FROM users WHERE email = $1`, [
     email,

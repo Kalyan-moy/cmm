@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { signup, login } from "../services/auth.service";
 
-// Signup API
 export const signupController = async (req: Request, res: Response) => {
   const { username, email, password } = req.body;
 
@@ -14,7 +13,6 @@ export const signupController = async (req: Request, res: Response) => {
   }
 };
 
-// Login API
 export const loginController = async (req: Request, res: Response) => {
   const { email, password } = req.body;
 

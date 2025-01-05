@@ -16,7 +16,6 @@ export const Item = styled(Box)(({ theme }) => ({
   paddingTop: "3rem",
   display: "flex",
   flexDirection: "column",
-  // justifyContent: "center",
   alignItems: "center",
   borderRadius: "0.5rem",
   border: `1px solid ${theme.palette.divider}`,

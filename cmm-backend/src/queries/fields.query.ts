@@ -1,6 +1,5 @@
 import { db } from "../config/postgres";
 
-// Insert a new user into the database
 export const createField = async (
   title: string,
   data_type: string,

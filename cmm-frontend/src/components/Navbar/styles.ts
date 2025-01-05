@@ -11,5 +11,4 @@ export const Container = styled(Box)(({ theme }) => ({
 
 export const ImageLogo = styled("img")(() => ({
   height: "4rem",
-  // margin: "2rem 0",
 }));

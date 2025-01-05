@@ -7,7 +7,6 @@ import Modal from "@/components/Modal";
 import TextInput from "@/components/TextInput";
 import Select from "@/components/Select/Select";
 import Button from "@/components/Button";
-// import { useToast } from "@/providers/Toast.provider";
 import { addFieldSchema, IAddFieldModel } from "./schema";
 import { DataTypeEnum } from "@/types/global.types";
 import { useCreateField } from "@/services/mutations/fields.mutation";
@@ -43,7 +42,6 @@ const AddFieldModal: FC<IAddFieldModalProps> = ({ open, onClose }) => {
   });
 
   const handleSave = async (data: IAddFieldModel) => {
-    // console.log({ data });
     try {
       await createFieldFn({ data });
       Toast.success({
@@ -94,7 +92,6 @@ const AddFieldModal: FC<IAddFieldModalProps> = ({ open, onClose }) => {
                 options={dataTypes || []}
                 required
                 inputProps={{
-                  // placeholder: "Select a department",
                   fullWidth: true,
                   sx: { mb: 1.5 },
                   multiple: false,

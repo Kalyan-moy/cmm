@@ -8,7 +8,6 @@ import { verifyToken } from "../middleware/auth.middleware";
 
 const router = express.Router();
 
-// Signup and Login Routes
 router.get("/", verifyToken, getAllFieldsController);
 router.post("/", verifyToken, createFieldController);
 
