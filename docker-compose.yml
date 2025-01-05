@@ -1,0 +1,38 @@
+version: "3.8"
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - MONGODB_URI=mongodb://mongo:27017/${MONGO_DB}
+
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: your_pg_user
+      POSTGRES_PASSWORD: your_pg_password
+      POSTGRES_DB: your_pg_database
+    ports:
+      - "5432:5432"
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
