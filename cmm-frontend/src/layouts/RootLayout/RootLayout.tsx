@@ -15,6 +15,7 @@ const RootLayout = () => {
 
   useEffect(() => {
     const data = _getTokenData();
+
     if (data?.username && data?.email && data?.id) {
       setUser({ id: data.id, username: data.username, email: data.email });
     } else {

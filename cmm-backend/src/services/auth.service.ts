@@ -22,7 +22,7 @@ export const signup = async (
 
   // Generate a JWT token
   const token = jwt.sign(
-    { id: user.id, email: user.email },
+    { id: user.id, email: user.email, username: user.username },
     process.env.JWT_SECRET as string,
     {
       expiresIn: "1h",
@@ -48,7 +48,7 @@ export const login = async (email: string, password: string) => {
 
   // Generate a JWT token
   const token = jwt.sign(
-    { id: user.id, email: user.email },
+    { id: user.id, email: user.email, username: user.username },
     process.env.JWT_SECRET as string,
     {
       expiresIn: "30d",

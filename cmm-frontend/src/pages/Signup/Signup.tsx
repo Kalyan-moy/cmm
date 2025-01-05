@@ -47,6 +47,7 @@ const Signup = () => {
   const handleLSignup = async (data: ISignupInput) => {
     try {
       const { token, user } = await signupFn({ data });
+
       if (token) {
         setUser({ id: user.id, username: user.username, email: user.email });
         _setToken(token);
