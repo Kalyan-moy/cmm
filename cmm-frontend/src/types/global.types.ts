@@ -41,3 +41,18 @@ export interface ICreateFieldResponse {
   message: string;
   field: IField;
 }
+
+export interface IForm {
+  id: string;
+  title: string;
+}
+
+export interface ICreateFormResponse {
+  message: string;
+  field: IForm;
+}
+
+export interface IFormsResponse {
+  message: string;
+  forms: IForm[];
+}

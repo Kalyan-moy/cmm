@@ -15,12 +15,12 @@ import TextInput from "@/components/TextInput";
 import Button from "@/components/Button";
 import { createFormSchema, ICreateFormModel } from "./schema";
 import { DataTypeEnum, IField } from "@/types/global.types";
-// import { useCreateField } from "@/services/mutations/fields.mutation";
-// import { useToast } from "@/providers/Toast.provider";
-// import { useQueryClient } from "react-query";
-// import { FETCH_FIELDS } from "@/constants/queryKeys.constants";
+import { useToast } from "@/providers/Toast.provider";
+import { useQueryClient } from "react-query";
 import { useGetFields } from "@/services/queries/fields.query";
 import AddIcon from "@mui/icons-material/Add";
+import { useCreateForm } from "@/services/mutations/forms.mutation";
+import { FETCH_FORMS } from "@/constants/queryKeys.constants";
 
 interface ICreateFormModalProps {
   open: boolean;
@@ -28,14 +28,14 @@ interface ICreateFormModalProps {
 }
 
 const CreateFormModal: FC<ICreateFormModalProps> = ({ open, onClose }) => {
-  //   const Toast = useToast();
+  const Toast = useToast();
   const theme = useTheme();
-  //   const { mutateAsync: createFieldFn, isLoading } = useCreateField();
-  const { data, isLoading } = useGetFields();
-  //   console.log({ data });
+  const { mutateAsync: createFormFn, isLoading: isCreateFormLoading } =
+    useCreateForm();
+  const { data } = useGetFields();
   const [addedFields, setAddedFields] = useState<IField[]>([]);
 
-  //   const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
 
   const {
     register,
@@ -48,22 +48,22 @@ const CreateFormModal: FC<ICreateFormModalProps> = ({ open, onClose }) => {
   });
 
   const handleSave = async (data: ICreateFormModel) => {
-    console.log({ data });
-    // try {
-    //   await createFieldFn({ data });
-    //   Toast.success({
-    //     title: "Field created",
-    //     message: "Field has been created successfully.",
-    //   });
-    //   queryClient.invalidateQueries([FETCH_FIELDS]);
-    //   reset();
-    //   onClose();
-    // } catch (error) {
-    //   Toast.error({
-    //     title: "Failed to create field",
-    //     message: "Something went wrong, please try again later.",
-    //   });
-    // }
+    // console.log({ data });
+    try {
+      await createFormFn({ data });
+      Toast.success({
+        title: "Form created",
+        message: "Form has been created successfully.",
+      });
+      queryClient.invalidateQueries([FETCH_FORMS]);
+      reset();
+      onClose();
+    } catch (error) {
+      Toast.error({
+        title: "Failed to create form",
+        message: "Something went wrong, please try again later.",
+      });
+    }
   };
 
   const handleRemove = (index: number) => {
@@ -209,7 +209,12 @@ const CreateFormModal: FC<ICreateFormModalProps> = ({ open, onClose }) => {
                   );
                 })}
             </Box>
-            <Button type="submit" fullWidth sx={{ mt: 4 }} loading={isLoading}>
+            <Button
+              type="submit"
+              fullWidth
+              sx={{ mt: 4 }}
+              loading={isCreateFormLoading}
+            >
               Create Form
             </Button>
           </form>
